@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Glass LinkedIn Badge</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root { --accent:#4fc3f7; --accent2:#7c4dff; --text:#eaf2ff; --bg:#05070f; --bg2:#0f172a; }
+*{box-sizing:border-box;margin:0;padding:0;}
+body {
+  margin:0;
+  background:#05070f;
+  overflow:hidden;
+  font-family:'Poppins', Inter, Arial, sans-serif;
+}
+#scene { position:fixed; inset:0; filter: drop-shadow(0 20px 40px rgba(0,0,0,0.55)); pointer-events:none; }
+  .overlay {
+  position:fixed; inset:0; display:grid; place-items:center; pointer-events:auto;
+    color:var(--text); z-index:2;
+  }
+  .card-ui {
+    width:300px; text-align:center; padding:22px 18px 26px;
+    background:linear-gradient(145deg,rgba(255,255,255,0.12),rgba(255,255,255,0.03));
+    border-radius:22px; border:1px solid rgba(255,255,255,0.18);
+    box-shadow:0 12px 45px rgba(0,0,0,0.55), 0 0 32px rgba(79,195,247,0.18);
+    backdrop-filter:blur(8px) saturate(120%);
+    position:relative;
+    overflow:hidden;
+    pointer-events:auto;
+  }
+.card-ui::before{
+  content:"";
+  position:absolute; inset:-40% 20% 30% -40%;
+  background:radial-gradient(circle, rgba(124,77,255,0.35), transparent 60%);
+  filter:blur(16px); opacity:0.55;
+}
+.card-ui::after{
+  content:"";
+  position:absolute; inset:55% -30% -35% 30%;
+  background:radial-gradient(circle, rgba(79,195,247,0.3), transparent 65%);
+  filter:blur(18px); opacity:0.55;
+}
+  .avatar-wrap {
+    width:110px; height:110px; margin:0 auto 12px; border-radius:50%;
+    padding:5px; background:linear-gradient(135deg,var(--accent),var(--accent2));
+    box-shadow:0 0 22px rgba(79,195,247,0.35),0 0 26px rgba(124,77,255,0.3);
+    display:grid; place-items:center; overflow:hidden;
+    aspect-ratio:1/1;
+  }
+  .avatar {
+    width:100%; height:100%; border-radius:50%;
+    object-fit:cover; object-position:center;
+    border:4px solid rgba(0,0,0,0.35);
+    display:block; aspect-ratio:1/1;
+  }
+  .name { font-size:21px; font-weight:700; letter-spacing:1px; margin-bottom:6px; text-transform:uppercase; }
+  .role { font-size:13px; color:#c7d6ff; margin-bottom:14px; letter-spacing:0.4px; }
+  .followers {
+    font-size:12px; color:#a9bbff; margin-bottom:14px;
+    letter-spacing:0.3px; display:flex; align-items:center; justify-content:center; gap:6px;
+  }
+  .followers .pulse {
+    width:8px; height:8px; border-radius:50%;
+    background:var(--accent);
+    box-shadow:0 0 12px rgba(79,195,247,0.8);
+  }
+  .btn {
+    display:inline-block; padding:11px 18px; border-radius:12px;
+    background:linear-gradient(135deg,var(--accent),var(--accent2));
+    color:#0c1020; font-weight:700; letter-spacing:0.5px; text-decoration:none;
+    box-shadow:0 10px 24px rgba(79,195,247,0.25),0 8px 20px rgba(124,77,255,0.28);
+    pointer-events:auto;
+    position:relative; z-index:3; cursor:pointer;
+  }
+  .cta-row {
+    margin-top:6px;
+    display:flex; justify-content:center; align-items:center; gap:10px;
+    position:relative; z-index:3;
+  }
+  .statline {
+    display:flex; justify-content:flex-end; gap:10px; margin:10px 0 4px;
+    font-size:11px; color:#a9bbff; letter-spacing:0.2px; flex-wrap:wrap;
+  }
+  .pill {
+    padding:6px 10px; border-radius:999px;
+    background:rgba(255,255,255,0.06);
+    border:1px solid rgba(255,255,255,0.12);
+    box-shadow:0 6px 16px rgba(0,0,0,0.25);
+  }
+  .icon-btn {
+    width:40px; height:40px; border-radius:12px;
+    background:rgba(255,255,255,0.06);
+    border:1px solid rgba(255,255,255,0.12);
+    display:grid; place-items:center;
+    box-shadow:0 10px 22px rgba(0,0,0,0.35);
+    transition:transform 0.18s ease, box-shadow 0.18s ease;
+    pointer-events:auto; cursor:pointer; position:relative; z-index:3;
+  }
+  .icon-btn:hover { transform:translateY(-2px); box-shadow:0 14px 26px rgba(0,0,0,0.4); }
+  .icon-btn svg { width:22px; height:22px; fill:var(--text); opacity:0.9; }
+</style>
+</head>
+<body>
+<canvas id="scene"></canvas>
+
+<div class="overlay">
+  <div class="card-ui">
+    <div class="avatar-wrap">
+      <img class="avatar" src="profile_image.png" alt="Avatar">
+    </div>
+    <div class="name">Mahia Akter Momo</div>
+    <div class="role">AI Data Annotation & Quality Intern @Agency Handy</div>
+    <div class="followers"><span class="pulse"></span><span>4,022 followers</span></div>
+    <div class="statline">
+      <span class="pill">500+ connections</span>
+      <span class="pill">695 profile views</span>
+    </div>
+    <div class="cta-row">
+      <a class="btn" href="https://www.linkedin.com/in/mahiamomo12/" target="_blank" rel="noopener">Connect</a>
+      <a class="icon-btn" href="https://github.com/mahiamOmO" target="_blank" rel="noopener" aria-label="GitHub">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 .5C5.73.5.5 5.73.5 12.02c0 5.11 3.3 9.44 7.88 10.97.58.11.79-.25.79-.56 0-.28-.01-1.02-.02-2-3.21.7-3.89-1.55-3.89-1.55-.53-1.35-1.29-1.71-1.29-1.71-1.06-.73.08-.72.08-.72 1.17.08 1.79 1.21 1.79 1.21 1.04 1.78 2.74 1.26 3.41.97.11-.76.41-1.26.74-1.55-2.56-.29-5.26-1.28-5.26-5.68 0-1.25.45-2.27 1.2-3.07-.12-.29-.52-1.45.12-3.02 0 0 .97-.31 3.18 1.17.92-.26 1.9-.39 2.88-.39.98 0 1.96.13 2.88.39 2.21-1.48 3.18-1.17 3.18-1.17.64 1.57.24 2.73.12 3.02.75.8 1.2 1.82 1.2 3.07 0 4.41-2.7 5.38-5.28 5.66.43.37.81 1.1.81 2.22 0 1.6-.02 2.88-.02 3.27 0 .31.21.67.8.56 4.57-1.53 7.87-5.86 7.87-10.97C23.5 5.73 18.27.5 12 .5Z"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</div>
+
+<script src="https://unpkg.com/three@0.161.0/build/three.min.js"></script>
+<script src="https://unpkg.com/three@0.161.0/examples/js/controls/OrbitControls.js"></script>
+<script>
+const canvas = document.getElementById('scene');
+const renderer = new THREE.WebGLRenderer({ canvas, antialias:true, alpha:true });
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(28, innerWidth/innerHeight, 0.1, 100);
+camera.position.set(0, 0, 6);
+
+const controls = new THREE.OrbitControls(camera, renderer.domElement);
+controls.enablePan = false; controls.enableZoom = false; controls.autoRotate = true; controls.autoRotateSpeed = 1.2;
+
+const light1 = new THREE.DirectionalLight(0xffffff, 1.0);
+light1.position.set(3, 4, 5);
+scene.add(light1);
+
+const hemi = new THREE.HemisphereLight(0x8ec5ff, 0x0b0d16, 0.6);
+scene.add(hemi);
+const fill = new THREE.PointLight(0x7c4dff, 0.6, 8);
+fill.position.set(-3, -2, 3);
+scene.add(fill);
+
+// Simple environment using gradient cube texture
+const pmrem = new THREE.PMREMGenerator(renderer);
+const envRT = pmrem.fromEquirectangular(generateGradTexture());
+scene.environment = envRT.texture;
+
+// Glass card
+const cardGeo = new THREE.RoundedBoxGeometry(2.6, 3.6, 0.25, 8, 8, 8);
+const cardMat = new THREE.MeshPhysicalMaterial({
+  transmission: 0.98,
+  thickness: 1.0,
+  roughness: 0.05,
+  clearcoat: 1,
+  clearcoatRoughness: 0.05,
+  metalness: 0,
+  envMapIntensity: 1.35,
+  ior: 1.4,
+  color: new THREE.Color(0x9fb8ff).multiplyScalar(0.32),
+  sheen: 1,
+  sheenRoughness: 0.35,
+  sheenColor: new THREE.Color(0x4fc3f7)
+});
+const card = new THREE.Mesh(cardGeo, cardMat);
+card.rotation.x = -0.18;
+card.rotation.y = 0.15;
+scene.add(card);
+
+// Back glow plate
+const plateGeo = new THREE.RoundedBoxGeometry(3.2, 4.2, 0.12, 6, 6, 6);
+const plateMat = new THREE.MeshStandardMaterial({
+  color: 0x0b0f1f,
+  emissive: new THREE.Color(0x4fc3f7).multiplyScalar(0.15),
+  metalness: 0.35,
+  roughness: 0.6
+});
+const plate = new THREE.Mesh(plateGeo, plateMat);
+plate.position.z = -0.5;
+scene.add(plate);
+
+// Glow ring behind card
+const ringGeo = new THREE.RingGeometry(1.2, 1.7, 64);
+const ringMat = new THREE.MeshBasicMaterial({ color:0x4fc3f7, transparent:true, opacity:0.35, side:THREE.DoubleSide });
+const ring = new THREE.Mesh(ringGeo, ringMat);
+ring.position.set(0, 0.2, -0.3);
+scene.add(ring);
+
+// Subtle particles
+const pGeo = new THREE.BufferGeometry();
+const count = 180;
+const positions = new Float32Array(count*3);
+for (let i=0;i<count;i++){
+  positions[i*3+0]=(Math.random()-0.5)*8;
+  positions[i*3+1]=(Math.random()-0.5)*6;
+  positions[i*3+2]=(Math.random()-0.5)*5;
+}
+pGeo.setAttribute('position', new THREE.BufferAttribute(positions,3));
+const pMat = new THREE.PointsMaterial({ color:0x7c4dff, size:0.032, transparent:true, opacity:0.7 });
+scene.add(new THREE.Points(pGeo,pMat));
+
+// Floating side chips
+const chipMat = new THREE.MeshStandardMaterial({
+  color: 0x101627,
+  emissive: 0x4fc3f7,
+  emissiveIntensity: 0.3,
+  metalness: 0.4,
+  roughness: 0.35
+});
+const chipGeo = new THREE.RoundedBoxGeometry(0.9, 0.36, 0.08, 4, 4, 4);
+const chipL = new THREE.Mesh(chipGeo, chipMat);
+chipL.position.set(-2.2, 0.6, 0.2);
+const chipR = chipL.clone();
+chipR.position.set(2.2, -0.4, 0.1);
+scene.add(chipL, chipR);
+
+function generateGradTexture() {
+  const size = 512;
+  const canvas = document.createElement('canvas');
+  canvas.width = canvas.height = size;
+  const ctx = canvas.getContext('2d');
+  const grad = ctx.createLinearGradient(0,0,size,size);
+  grad.addColorStop(0,'#1a2340');
+  grad.addColorStop(1,'#0b0d16');
+  ctx.fillStyle = grad;
+  ctx.fillRect(0,0,size,size);
+  return new THREE.CanvasTexture(canvas);
+}
+
+function resize() {
+  const w = innerWidth, h = innerHeight;
+  renderer.setSize(w,h); renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+  camera.aspect = w/h; camera.updateProjectionMatrix();
+}
+window.addEventListener('resize', resize);
+resize();
+
+function animate(){
+  requestAnimationFrame(animate);
+  const t = performance.now()*0.001;
+  ring.rotation.z += 0.0018;
+  plate.rotation.z = Math.sin(t*0.3)*0.08;
+  card.position.y = Math.sin(t*0.9)*0.05;
+  chipL.position.y = 0.6 + Math.sin(t*1.2)*0.15;
+  chipR.position.y = -0.4 + Math.cos(t*1.1)*0.12;
+  chipL.rotation.z = Math.sin(t*0.8)*0.25;
+  chipR.rotation.z = -Math.sin(t*0.7)*0.25;
+  renderer.render(scene,camera);
+}
+animate();
+
+</script>
+</body>
+</html>
